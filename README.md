@@ -1,7 +1,7 @@
 # BreezeBuild
 
-**v0.0.1 — very early days.** This is the marketing site for an idea I'm actively
-building in public. Things will change, break, and get rewritten.
+**v0.0.1 — very early days.** This is the frontend application for BreezeBuild,
+built in public. Things will change, break, and get rewritten.
 
 ## The idea
 
@@ -35,8 +35,13 @@ and like something you'd actually ship.
 
 ## What's in this repo
 
-Just the website — the landing page for the product. The platform itself isn't
-open source (yet, or maybe ever — undecided).
+The BreezeBuild frontend — the web application users sign in to and work in, not
+a separate marketing site. Right now that's the landing surface plus
+authentication; the workspace itself (agent panel, diff review, test runs, live
+preview) is being built out here.
+
+The backend platform that generates and deploys applications lives elsewhere and
+isn't open source (yet, or maybe ever — undecided).
 
 ## Tech stack
 
