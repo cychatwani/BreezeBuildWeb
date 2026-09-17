@@ -21,7 +21,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ClerkProvider>{children}</ClerkProvider>
+        {/*
+          Set as props, not env vars. Clerk resolves these as
+          `props.signInUrl || process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || ""`,
+          and an empty value makes it fall back to Clerk's hosted Account
+          Portal instead of these routes. The paths are identical in every
+          environment, so hardcoding them here removes a per-environment
+          variable that has to be remembered on each deploy target.
+        */}
+        <ClerkProvider
+          signInUrl="/sign-in"
+          signUpUrl="/sign-up"
+          signInFallbackRedirectUrl="/"
+          signUpFallbackRedirectUrl="/"
+        >
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
