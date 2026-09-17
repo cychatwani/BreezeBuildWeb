@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BreezeBuild
 
-## Getting Started
+**v0.0.1 — very early days.** This is the marketing site for an idea I'm actively
+building in public. Things will change, break, and get rewritten.
 
-First, run the development server:
+## The idea
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+You already know how to build a backend. You just don't want to spend another
+afternoon on the same project setup, the same Gradle config, the same test
+harness, the same deploy wiring.
+
+BreezeBuild is meant to take a backend described in plain English and turn it
+into a real **Spring Boot + PostgreSQL** application — provisioned, deployed to a
+live preview, with Swagger docs and synthetic data to test against. Then you
+iterate on it with AI agents that propose small, explained, reviewable changes
+rather than dumping code on you.
+
+The loop it's aiming at:
+
+```
+idea -> architecture -> small AI change -> human review -> test -> preview
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Two things it is deliberately not:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Not a code generator that runs unattended.** Every meaningful change is
+  small, explained, and waits for approval. The engineer stays in the driving
+  seat.
+- **Not for people who can't build backends.** It's for people who can, and
+  would rather skip the repetitive parts.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+It's opinionated on purpose: fixed project structure, conventions, testing
+practices, and reliability patterns, so generated projects look like each other
+and like something you'd actually ship.
 
-## Learn More
+## What's in this repo
 
-To learn more about Next.js, take a look at the following resources:
+Just the website — the landing page for the product. The platform itself isn't
+open source (yet, or maybe ever — undecided).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| UI | React 19 |
+| Styling | Tailwind CSS v4 + CSS Modules |
+| Auth | Clerk |
+| Animation | Motion |
+| Graphics | Paper Shaders (WebGL dithering) |
+| Font | Geist |
+| Package manager | Yarn |
 
-## Deploy on Vercel
+The product BreezeBuild generates is a different stack entirely — Java 21,
+Spring Boot, PostgreSQL/RDS, Redis, Flyway, Resilience4j, Lombok, Gradle, AWS.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Running it
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+yarn install
+yarn dev
+```
+
+Then open http://localhost:3000.
+
+You'll need a `.env.local` with your own Clerk keys — the app won't boot without
+them:
+
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+```
+
+The fastest way to get those is `npx clerk@latest init`, which provisions a
+development instance and writes the file for you. `.env.local` is gitignored —
+keep it that way.
+
+## Status
+
+| | |
+|---|---|
+| Version | 0.0.1 |
+| Stage | Landing page only, actively changing |
+| Stability | None. Assume anything can move. |
+
+## Feedback
+
+I'd genuinely like to hear from developers who'd use something like this — what
+would make it useful, and what would make you close the tab.
+
+**contact@chirag45.dev**
+
+Built by [Chirag Chatwani](https://chirag45.dev) — software engineer working on
+backend systems and AI-powered tooling.
+
+Built in public, one piece at a time.
