@@ -1,0 +1,165 @@
+/*
+ * Cosmic gradient border: two counter-rotating conic gradients behind an opaque
+ * inner surface. The 1px gap between the root's padding and the inner surface is
+ * what reads as the border, so the gradient is never drawn - only revealed.
+ */
+
+@keyframes cosmicSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cosmicSpinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.root {
+  position: relative;
+  display: inline-flex;
+  padding: 1.5px;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Oversized so the rotating square always covers the pill's corners. */
+.root::before,
+.root::after {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.root::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #fb923c 40deg,
+    #f97316 90deg,
+    #ef4444 140deg,
+    transparent 200deg,
+    transparent 360deg
+  );
+  animation: cosmicSpin 3s linear infinite;
+}
+
+.root::after {
+  background: conic-gradient(
+    from 180deg,
+    transparent 0deg,
+    #ef4444 50deg,
+    #fb923c 110deg,
+    transparent 190deg,
+    transparent 360deg
+  );
+  animation: cosmicSpinSlow 5s linear infinite;
+  opacity: 0.55;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  width: 100%;
+  border-radius: inherit;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+/* Header-scale: must sit inside --topbar-h without forcing the bar taller. */
+.sm .inner {
+  font-size: clamp(0.8rem, 0.85vw, 1rem);
+  padding: 0.68em 1.3em;
+}
+
+/* Hero-scale. */
+.md .inner {
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  padding: 1em 1.75em;
+}
+
+/* Filled: brand gradient surface, dark ink. */
+.primary .inner {
+  color: #0a0a0a;
+  background-image: linear-gradient(to right, #fb923c, #f97316 55%, #ef4444);
+}
+
+/* Outlined: near-black surface, so the spinning gradient reads as the border. */
+.secondary .inner {
+  color: rgba(250, 250, 250, 0.86);
+  background-color: #0b0b0b;
+}
+
+.root:hover .inner {
+  color: #fafafa;
+}
+
+.secondary:hover .inner {
+  background-color: #121212;
+}
+
+.primary:hover .inner {
+  color: #0a0a0a;
+}
+
+.root:focus-visible {
+  outline: 2px solid rgba(249, 115, 22, 0.75);
+  outline-offset: 3px;
+}
+
+.root:disabled,
+.root[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.root:disabled::before,
+.root:disabled::after,
+.root[aria-disabled="true"]::before,
+.root[aria-disabled="true"]::after {
+  animation-play-state: paused;
+}
+
+.trailing {
+  display: inline-flex;
+  transition: transform 180ms ease;
+}
+
+.root:hover .trailing {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root::before,
+  .root::after {
+    animation: none;
+  }
+  .trailing {
+    transition: none;
+  }
+  .root:hover .trailing {
+    transform: none;
+  }
+}

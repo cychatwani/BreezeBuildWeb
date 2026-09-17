@@ -1,0 +1,221 @@
+.root {
+  padding-block: clamp(2rem, 4vw, 4rem) clamp(2.5rem, 5vw, 5rem);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .container {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(3rem, 5vw, 6rem);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  min-width: 0;
+}
+
+/* ---------- heading ---------- */
+
+.heading {
+  margin: 0;
+  font-size: clamp(2.25rem, 5.2vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: #fafafa;
+  text-wrap: balance;
+}
+
+/* Each headline line is its own row so the wordmark can sit on the baseline. */
+.headingLine {
+  display: block;
+}
+
+/*
+ * Line 1 holds the wordmark + "your idea" and must not break between them.
+ * Only from 48rem up - below that the pair genuinely cannot fit, and nowrap
+ * there would force a horizontal scrollbar.
+ */
+@media (min-width: 48rem) {
+  .headingLineOne {
+    white-space: nowrap;
+  }
+}
+
+/*
+ * The wordmark replaces the word "BreezeBuild", so it is sized in em to track
+ * font-size. The asset is cropped to cap-height..baseline, which is why a plain
+ * baseline alignment lands correctly without a magic offset.
+ */
+.wordmark {
+  height: 0.74em;
+  width: auto;
+  /* Tailwind preflight sets img{display:block}; without this the wordmark
+     becomes a block box and "your idea" is forced onto its own line. */
+  display: inline-block;
+  vertical-align: baseline;
+  /* extra optical gap; the space character alone reads too tight next to a mark */
+  margin-right: 0.14em;
+  /* nudge: optical, the glyph cap sits fractionally high against Geist */
+  position: relative;
+  top: 0.015em;
+}
+
+/*
+ * Pronounced halftone on line 1's remaining words. The dot cell is sized in em
+ * so the texture stays proportional from 360px to 4K instead of coarsening.
+ */
+.dotted {
+  --dot: 0.09em;
+  background-image: radial-gradient(
+    circle,
+    #fafafa 48%,
+    transparent 50%
+  );
+  background-size: var(--dot) var(--dot);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Without this the text renders invisible wherever background-clip:text fails. */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .dotted {
+    color: #fafafa;
+    background-image: none;
+  }
+}
+
+/* ---------- copy ---------- */
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0;
+  max-width: 68ch;
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.74);
+}
+
+.detail {
+  margin: 0;
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.5);
+}
+
+/* ---------- actions ---------- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 1em 1.75em;
+  transition: background-color 160ms ease, border-color 160ms ease,
+    color 160ms ease, transform 160ms ease;
+}
+
+.primary {
+  color: #0a0a0a;
+  background-image: linear-gradient(to right, #FB923C, #F97316 55%, #EF4444);
+  border: 1px solid transparent;
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+}
+
+.secondary {
+  color: rgba(250, 250, 250, 0.82);
+  background: none;
+  border: 1px solid rgba(250, 250, 250, 0.18);
+}
+
+.secondary:hover {
+  color: #fafafa;
+  border-color: rgba(249, 115, 22, 0.55);
+  background-color: rgba(249, 115, 22, 0.1);
+}
+
+/* ---------- visual ---------- */
+
+.visual {
+  display: none;
+  position: relative;
+  width: 90%;
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  /* Feather the shader edges so it reads as part of the page, not a pasted tile. */
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 42%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 76%);
+}
+
+@media (min-width: 60rem) {
+  .visual {
+    display: block;
+  }
+}
+
+.mobileVisual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 1rem;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 40%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 78%);
+}
+
+@media (min-width: 60rem) {
+  .mobileVisual {
+    display: none;
+  }
+}
+
+.shader {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

@@ -1,0 +1,212 @@
+/*
+ * MacbookScroll owns a min-h-[200vh] scroll track and its own md:py-80, so this
+ * section deliberately adds very little vertical padding of its own.
+ */
+
+.root {
+  padding-block: clamp(2.5rem, 5vw, 5rem) 0;
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  max-width: 64ch;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fb923c;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.85rem, 3.1vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #fafafa;
+  text-wrap: balance;
+}
+
+.headingAccent {
+  background-image: linear-gradient(to right, #fb923c, #f97316 60%, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .headingAccent {
+    color: #f97316;
+  }
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  line-height: 1.65;
+  color: rgba(250, 250, 250, 0.68);
+}
+
+.sub {
+  margin: 0;
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: rgba(250, 250, 250, 0.5);
+}
+
+.positioning {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.4rem;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.08);
+  border-radius: 999px;
+  padding: 0.35em 0.8em;
+  font-size: clamp(0.72rem, 0.8vw, 0.8rem);
+  color: #fb923c;
+}
+
+/*
+ * The laptop's own transform context.
+ *
+ * overflow:hidden must be HERE, not just on .root - the lid animates
+ * translateY 0 -> 1500px on scroll, and the principles/philosophy live inside
+ * the same section, so clipping at the section boundary is too late: the lid
+ * slides straight over them. Clipping at the stage stops it at the laptop area.
+ */
+.stage {
+  position: relative;
+  overflow: hidden;
+}
+
+/*
+ * How tall the laptop actually is, visually.
+ *
+ * Two things make this larger than the layout box: the lid translates down
+ * LID_TRAVEL (450px) as it opens, and it renders at scaleY 1.5 - so the lid's
+ * bottom lands at ~1198px, not the base's 716px. On top of that the whole
+ * container is scaled with origin-top (lg 1.05 / xl 1.15 / 2xl 1.3), and
+ * transforms do not affect layout. Floors below = visual extent x scale, plus
+ * ~110px clearance, so the cards start after the laptop rather than over it.
+ *
+ * Unscaled visual extent: 96 + 76 + 620 + (384 x 1.5) + 96 = 1464px.
+ * No floor under md - the laptop is scaled to 0.35/0.5 there and a floor would
+ * only create dead space on phones.
+ */
+@media (min-width: 48rem) {
+  .stage {
+    min-height: 1530px;
+  }
+}
+
+@media (min-width: 64rem) {
+  .stage {
+    min-height: 1610px;
+  }
+}
+
+@media (min-width: 80rem) {
+  .stage {
+    min-height: 1750px;
+  }
+}
+
+@media (min-width: 96rem) {
+  .stage {
+    min-height: 1970px;
+  }
+}
+
+/* Belt-and-braces: keep the copy above the laptop's stacking context. */
+.below {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+}
+
+/* ---------------- principles ---------------- */
+
+.principles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+@media (min-width: 52rem) {
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.principle {
+  border: 1px solid rgba(250, 250, 250, 0.09);
+  border-radius: 0.9rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.012)
+  );
+  padding: clamp(1.1rem, 1.7vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.principleLabel {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fb923c;
+}
+
+.principleBody {
+  margin: 0;
+  font-size: clamp(0.875rem, 0.98vw, 0.975rem);
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.7);
+}
+
+/* ---------------- philosophy + closing ---------------- */
+
+.philosophy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  padding-top: clamp(1.5rem, 2.5vw, 2.25rem);
+  border-top: 1px solid rgba(250, 250, 250, 0.08);
+}
+
+.philosophyLine {
+  font-size: clamp(1.15rem, 1.8vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: #fafafa;
+  text-wrap: balance;
+}
+
+.philosophyNote {
+  margin: 0;
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.5);
+  max-width: 58ch;
+}
+
+.closing {
+  margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(250, 250, 250, 0.82);
+}

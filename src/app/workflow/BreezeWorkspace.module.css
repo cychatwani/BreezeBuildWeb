@@ -1,0 +1,467 @@
+/*
+ * The product UI shown inside the laptop lid.
+ *
+ * The lid is 32rem x 24rem, and the scroll animation scales it to ~1.5x, so
+ * everything is sized against that: 6px base reads as ~9px once revealed.
+ * Sizes are in px on purpose - this is a fixed-size canvas, not a fluid layout.
+ */
+
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  color: #fafafa;
+  font-size: 6px;
+  line-height: 1.45;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  user-select: none;
+}
+
+/* ---------------- browser chrome ---------------- */
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+  background: #151515;
+  border-bottom: 1px solid rgba(250, 250, 250, 0.07);
+  flex: none;
+}
+
+.lights {
+  display: flex;
+  gap: 3px;
+}
+
+.light {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(250, 250, 250, 0.18);
+}
+
+.urlBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #0b0b0b;
+  border: 1px solid rgba(250, 250, 250, 0.07);
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 5px;
+  color: rgba(250, 250, 250, 0.5);
+}
+
+.lock {
+  color: #4fb477;
+  font-size: 5px;
+}
+
+.greenfield {
+  flex: none;
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  background: rgba(249, 115, 22, 0.1);
+  color: #fb923c;
+  border-radius: 999px;
+  padding: 1px 5px;
+  font-size: 4.5px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ---------------- app bar ---------------- */
+
+.appBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 7px;
+  border-bottom: 1px solid rgba(250, 250, 250, 0.06);
+  background: #0d0d0d;
+  flex: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 6px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brandMark {
+  width: 7px;
+  height: 7px;
+  color: #f97316;
+}
+
+.brandBuild {
+  color: #f97316;
+}
+
+.crumb {
+  color: rgba(250, 250, 250, 0.32);
+  font-size: 5.5px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.deployPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid rgba(79, 180, 119, 0.3);
+  background: rgba(79, 180, 119, 0.08);
+  color: #4fb477;
+  border-radius: 999px;
+  padding: 1px 5px;
+  font-size: 4.5px;
+}
+
+/* ---------------- body grid ---------------- */
+
+.body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1.1fr 0.95fr;
+  gap: 5px;
+  padding: 5px;
+  min-height: 0;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 0;
+}
+
+.panel {
+  border: 1px solid rgba(250, 250, 250, 0.07);
+  border-radius: 4px;
+  background: #101010;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+}
+
+.panelGrow {
+  flex: 1;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.panelTitle {
+  font-size: 5.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(250, 250, 250, 0.82);
+}
+
+.tag {
+  border-radius: 3px;
+  padding: 0.5px 3px;
+  font-size: 4.5px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.tagAi {
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.1);
+  color: #fb923c;
+}
+
+.tagMuted {
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  color: rgba(250, 250, 250, 0.4);
+}
+
+/* ---------------- agent panel ---------------- */
+
+.agentMsg {
+  font-size: 5.5px;
+  line-height: 1.5;
+  color: rgba(250, 250, 250, 0.82);
+}
+
+.why {
+  border-left: 1.5px solid rgba(249, 115, 22, 0.5);
+  padding-left: 4px;
+  font-size: 5px;
+  line-height: 1.5;
+  color: rgba(250, 250, 250, 0.52);
+}
+
+.whyLabel {
+  display: block;
+  color: #fb923c;
+  font-weight: 600;
+  font-size: 5px;
+  margin-bottom: 1px;
+}
+
+.actions {
+  display: flex;
+  gap: 3px;
+  margin-top: auto;
+}
+
+.btn {
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 5px;
+  font-weight: 500;
+  border: 1px solid rgba(250, 250, 250, 0.12);
+  color: rgba(250, 250, 250, 0.7);
+}
+
+.btnPrimary {
+  border-color: transparent;
+  background-image: linear-gradient(to right, #fb923c, #f97316 60%, #ef4444);
+  color: #0a0a0a;
+  font-weight: 600;
+}
+
+/* Cursor resting on the primary action - human approves, AI waits. */
+.cursor {
+  position: relative;
+}
+
+.cursor::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -4px;
+  width: 0;
+  height: 0;
+  border-left: 3.5px solid #fafafa;
+  border-right: 2.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  transform: rotate(-20deg);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+}
+
+/* ---------------- diff panel ---------------- */
+
+.fileRow {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 5px;
+  color: rgba(250, 250, 250, 0.55);
+}
+
+.fileName {
+  color: rgba(250, 250, 250, 0.8);
+  font-weight: 500;
+}
+
+.diff {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #0b0b0b;
+  border: 1px solid rgba(250, 250, 250, 0.05);
+}
+
+.diffLine {
+  display: flex;
+  gap: 4px;
+  padding: 1px 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 5px;
+  line-height: 1.55;
+  white-space: nowrap;
+}
+
+.diffAdd {
+  background: rgba(79, 180, 119, 0.09);
+  color: #8fd8a8;
+}
+
+.diffDel {
+  background: rgba(239, 68, 68, 0.09);
+  color: #f0a1a1;
+}
+
+.diffCtx {
+  color: rgba(250, 250, 250, 0.32);
+}
+
+.sign {
+  width: 4px;
+  flex: none;
+  opacity: 0.8;
+}
+
+.diffFoot {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 4.5px;
+  color: rgba(250, 250, 250, 0.38);
+}
+
+.statAdd {
+  color: #6bbd88;
+}
+
+.statDel {
+  color: #d98484;
+}
+
+/* ---------------- tests ---------------- */
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 5px;
+  color: rgba(250, 250, 250, 0.62);
+}
+
+.check {
+  color: #4fb477;
+  font-size: 5.5px;
+  flex: none;
+}
+
+.checkStrong {
+  color: rgba(250, 250, 250, 0.85);
+  font-weight: 600;
+}
+
+.testFirst {
+  font-size: 4.5px;
+  color: rgba(250, 250, 250, 0.3);
+  font-style: italic;
+}
+
+/* ---------------- preview ---------------- */
+
+.liveRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.liveDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: #4fb477;
+  box-shadow: 0 0 0 0 rgba(79, 180, 119, 0.6);
+  animation: livePulse 2.4s ease-out infinite;
+  flex: none;
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 180, 119, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 4px rgba(79, 180, 119, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 180, 119, 0);
+  }
+}
+
+.liveLabel {
+  font-size: 4.5px;
+  letter-spacing: 0.08em;
+  color: #4fb477;
+  font-weight: 600;
+}
+
+.url {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 4.5px;
+  color: rgba(250, 250, 250, 0.55);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.endpoints {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.endpoint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 4.5px;
+  color: rgba(250, 250, 250, 0.5);
+}
+
+.verb {
+  flex: none;
+  width: 14px;
+  font-weight: 700;
+  font-size: 4px;
+  letter-spacing: 0.03em;
+}
+
+.verbGet {
+  color: #6aa9e0;
+}
+
+.verbPost {
+  color: #6bbd88;
+}
+
+/* ---------------- synthetic data ---------------- */
+
+.dataRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 5px;
+  color: rgba(250, 250, 250, 0.58);
+}
+
+.dataLeader {
+  flex: 1;
+  border-bottom: 1px dotted rgba(250, 250, 250, 0.14);
+  transform: translateY(-1.5px);
+}
+
+.dataVal {
+  font-variant-numeric: tabular-nums;
+  color: rgba(250, 250, 250, 0.85);
+  font-weight: 600;
+}
+
+/* ---------------- deployment ---------------- */
+
+.deployList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot {
+    animation: none;
+  }
+}

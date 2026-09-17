@@ -1,0 +1,203 @@
+.root {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.25rem, 4vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 54rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+/* ---------------- primary ---------------- */
+
+.primary {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  min-width: 0;
+}
+
+/* Text-only lockup: same split as the mark, without the icon. */
+.wordmark {
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fafafa;
+  margin-bottom: 0.15rem;
+}
+
+.wordmarkBuild {
+  background-image: linear-gradient(to right, #fb923c, #f97316 55%, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .wordmarkBuild {
+    color: #f97316;
+  }
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: #fafafa;
+  text-wrap: balance;
+}
+
+.statusDot {
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #fb923c;
+  box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.55);
+  animation: footerPulse 2.6s ease-out infinite;
+}
+
+@keyframes footerPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(251, 146, 60, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
+  }
+}
+
+.body {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.65;
+  color: rgba(250, 250, 250, 0.62);
+}
+
+.email {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+  color: #fb923c;
+  text-decoration: none;
+  border: 1px solid rgba(249, 115, 22, 0.32);
+  background: rgba(249, 115, 22, 0.07);
+  border-radius: 999px;
+  padding: 0.5em 0.95em;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease;
+}
+
+.email:hover {
+  color: #fdba74;
+  border-color: rgba(249, 115, 22, 0.6);
+  background-color: rgba(249, 115, 22, 0.14);
+}
+
+.email:focus-visible {
+  outline: 2px solid rgba(249, 115, 22, 0.8);
+  outline-offset: 3px;
+}
+
+/* ---------------- built by ---------------- */
+
+.by {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+@media (min-width: 54rem) {
+  .by {
+    padding-left: clamp(1rem, 2vw, 1.75rem);
+    border-left: 1px solid rgba(250, 250, 250, 0.07);
+  }
+}
+
+.byLabel {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 250, 0.34);
+}
+
+.byName {
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #fafafa;
+}
+
+.bio {
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(0.82rem, 0.92vw, 0.9rem);
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.52);
+}
+
+.about {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+  font-size: clamp(0.82rem, 0.92vw, 0.9rem);
+  color: rgba(250, 250, 250, 0.78);
+  text-decoration: none;
+  transition: color 180ms ease, gap 180ms ease;
+}
+
+.about:hover {
+  color: #fb923c;
+  gap: 0.55rem;
+}
+
+.about:focus-visible {
+  outline: 2px solid rgba(249, 115, 22, 0.8);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---------------- closing line ---------------- */
+
+.closing {
+  margin: clamp(1.75rem, 3vw, 2.75rem) 0 0;
+  font-size: clamp(0.8rem, 0.9vw, 0.875rem);
+  color: rgba(250, 250, 250, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusDot {
+    animation: none;
+  }
+
+  .about {
+    transition: color 180ms ease;
+  }
+
+  .about:hover {
+    gap: 0.35rem;
+  }
+}
