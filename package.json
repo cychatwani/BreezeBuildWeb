@@ -9,9 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.9.4",
+    "@paper-design/shaders-react": "0.0.80",
+    "@tabler/icons-react": "3.46.0",
+    "clsx": "^2.1.1",
+    "motion": "13.4.0",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
